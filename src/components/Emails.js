@@ -1,10 +1,14 @@
 import Email from './Email'
+import '../Email.css'
 
-function Emails() {
+function Emails(props) {
   return (
     <ul>
-      {filteredEmails.map((email, index) => (
-        <Email />
+      {props.filteredEmails.map((email, index) => (
+        <Email 
+        email={email}
+        index={index}
+        />
       ))}
     </ul>
   )

@@ -90,8 +90,9 @@ function App() {
         </ul>
       </nav>
       <main className="emails">
-        <Emails />
-        
+        <Emails 
+        filteredEmails={filteredEmails}
+        />
       </main>
     </div>
   )
