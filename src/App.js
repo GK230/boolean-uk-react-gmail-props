@@ -14,9 +14,28 @@ function App() {
   const [emails, setEmails] = useState(initialEmails)
   const [hideRead, setHideRead] = useState(false)
   const [currentTab, setCurrentTab] = useState('inbox')
+  const [searchInput, setSearchInput] = useState('')
 
   const unreadEmails = emails.filter(email => !email.read)
   const starredEmails = emails.filter(email => email.starred)
+
+  const toggleStar = targetEmail => {
+    const updatedEmails = emails =>
+      emails.map(email =>
+        email.id === targetEmail.id
+          ? { ...email, starred: !email.starred }
+          : email
+      )
+    setEmails(updatedEmails)
+  }
+
+  const toggleRead = targetEmail => {
+    const updatedEmails = emails =>
+      emails.map(email =>
+        email.id === targetEmail.id ? { ...email, read: !email.read } : email
+      )
+    setEmails(updatedEmails)
+  }
 
   let filteredEmails = emails
 
@@ -24,6 +43,17 @@ function App() {
 
   if (currentTab === 'starred')
     filteredEmails = getStarredEmails(filteredEmails)
+
+  function searchTitle() {
+
+    const handleChange = e => setSearchInput(e.target.value)
+  
+    const handleSubmit = e => {
+      e.preventDefault()
+      searchTitle(searchInput)
+      setSearchInput('')
+  }
+}
 
   return (
     <div className="app">
@@ -40,7 +70,13 @@ function App() {
         </div>
 
         <div className="search">
-          <input className="search-bar" placeholder="Search mail" />
+          <input
+            className="search-bar"
+            placeholder="Search mail"
+            onChange={handleChange}
+            value={searchInput}
+            onSubmit={handleSubmit}
+          />
         </div>
       </header>
       <nav className="left-menu">
@@ -72,8 +108,10 @@ function App() {
         </ul>
       </nav>
       <main className="emails">
-        <Emails 
-        filteredEmails={filteredEmails}
+        <Emails
+          filteredEmails={filteredEmails}
+          toggleRead={toggleRead}
+          toggleStar={toggleStar}
         />
       </main>
     </div>
