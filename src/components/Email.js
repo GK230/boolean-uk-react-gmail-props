@@ -19,7 +19,7 @@ function Email(props) {
           className="star-checkbox"
           type="checkbox"
           checked={props.email.starred}
-          onChange={() => props.toggleStar(email)}
+          onChange={() => props.toggleStar(props.email)}
         />
       </div>
       <div className="sender">{props.email.sender}</div>
