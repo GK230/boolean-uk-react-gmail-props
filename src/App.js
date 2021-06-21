@@ -44,7 +44,6 @@ function App() {
   if (currentTab === 'starred')
     filteredEmails = getStarredEmails(filteredEmails)
 
-  function searchTitle() {
 
     const handleChange = e => setSearchInput(e.target.value)
   
@@ -53,7 +52,7 @@ function App() {
       searchTitle(searchInput)
       setSearchInput('')
   }
-}
+
 
   return (
     <div className="app">
